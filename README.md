@@ -1,4 +1,4 @@
-# STM32-Edge-AI-Application: 3D Gesture Recognition
+# STM32-Edge-AI-Application: Gesture Recognition
 
 ## 1. Project Overview & Purpose
 The primary objective of this project is to build and observe a complete Edge AI application running on a resource-constrained microcontroller. Rather than just running machine learning inferences on a powerful computer, this project demonstrates the end-to-end pipeline: collecting raw sensor data, training a custom neural network from scratch, and deploying it directly onto bare-metal hardware. It serves as a practical implementation to understand the physical limitations of microcontrollers, optimize models for tight memory boundaries, and translate mathematical signal processing into real-time gesture recognition.
