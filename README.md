@@ -15,7 +15,9 @@ The hardware architecture is built around an STM32 Nucleo-F411RE development boa
 
 ## 3. Data Acquisition & Signal Processing
 To ensure accurate readings, a calibration routine runs at startup, capturing 500 samples to calculate and subtract the initial sensor drift offset. A critical engineering decision in this project was avoiding the use of raw X, Y, and Z spatial axes for the neural network. Instead, the Euclidean norms (magnitudes) for both the acceleration and gyroscope data were calculated. This mathematical approach makes the system orientation-independent, meaning a gesture drawn parallel to a desk or perpendicular to a monitor generates the same energetic signature. For dataset creation, a custom MATLAB interface was developed to visualize the 3D orientation and automatically log 4-second gesture windows (Triangle, Rectangle, Circle, and Idle) into CSV files.
+
 <img width="230" height="240" alt="image" src="https://github.com/user-attachments/assets/652ecef0-1c97-48f5-b458-457227ad7864" />
+
 
 ## 4. 1D CNN Model Architecture
 Building the neural network wasn't a seamless process due to strict hardware constraints. The STM32F411RE is limited to 512KB of Flash memory and 128KB of RAM. Initially, I included Batch Normalization layers to automatically scale the dataset. However, this caused the model to amplify microscopic electrical noise when the sensor was completely stationary, resulting in false "Triangle" predictions. To solve this noise issue and fit the model into the microcontroller's memory, the architecture was heavily modified. Batch normalization was removed, and aggressive MaxPooling was utilized to compress the time-series data while minimizing the parameter count. Below is the final optimized Python code used for the model:
